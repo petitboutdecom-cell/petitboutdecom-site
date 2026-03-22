@@ -4,49 +4,61 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Petit Bout de Com • Elsa</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: linear-gradient(160deg, #F7F0E8 0%, #EDE0D0 100%); min-height: 100vh; font-family: 'Jost', sans-serif; color: #2C1810; display: flex; align-items: center; justify-content: center; }
-    .container { max-width: 480px; width: 100%; margin: 0 auto; padding: 40px 20px; }
-    .logo { text-align: center; margin-bottom: 8px; }
-    .logo span { font-family: 'Jost', sans-serif; font-size: 22px; font-weight: 700; color: #C4714A; }
-    .tagline { text-align: center; color: rgba(92,61,46,0.5); font-size: 13px; font-weight: 300; margin-bottom: 36px; }
-    .card { background: #fff; border-radius: 24px; padding: 40px 32px; box-shadow: 0 20px 60px rgba(92,61,46,0.1); border: 1px solid rgba(196,113,74,0.15); }
-    .badge { display: inline-block; background: rgba(196,113,74,0.1); color: #C4714A; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 20px; border: 1px solid rgba(196,113,74,0.2); }
-    .emoji { font-size: 44px; margin-bottom: 14px; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 34px; font-weight: 700; line-height: 1.15; margin-bottom: 14px; }
-    h1 em { color: #C4714A; font-style: italic; }
-    .desc { color: #5C3D2E; font-size: 14px; line-height: 1.7; font-weight: 300; margin-bottom: 24px; }
-    .divider { height: 1px; background: rgba(92,61,46,0.1); margin-bottom: 22px; }
-    .check { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .check-dot { width: 20px; height: 20px; border-radius: 50%; background: rgba(196,113,74,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #C4714A; font-weight: 700; flex-shrink: 0; }
-    .check span { font-size: 13px; color: #5C3D2E; font-weight: 500; }
-    .cta { display: block; width: 100%; background: linear-gradient(135deg, #C4714A, #7B2D2D); color: #fff; border-radius: 14px; padding: 17px 20px; font-size: 16px; font-weight: 600; text-align: center; text-decoration: none; transition: all 0.2s; margin-top: 24px; margin-bottom: 12px; }
+    body { background: #7B2D2D; min-height: 100vh; font-family: 'Jost', sans-serif; }
+    .logo-bar { text-align: center; padding: 32px 20px 24px; }
+    .logo-text { font-size: 20px; font-weight: 800; color: #F2E8DC; letter-spacing: -0.01em; }
+    .tagline { font-size: 12px; color: rgba(242,232,220,0.5); font-weight: 300; margin-top: 4px; }
+    .page-wrap { max-width: 480px; margin: 0 auto; padding: 0 20px 48px; }
+    .card { background: #F2E8DC; border-radius: 28px; padding: 36px 28px; position: relative; overflow: hidden; }
+    .deco1 { position: absolute; width: 140px; height: 140px; border-radius: 50%; background: rgba(123,45,45,0.08); bottom: -50px; right: -50px; }
+    .deco2 { position: absolute; width: 80px; height: 80px; border-radius: 50%; background: rgba(196,113,74,0.1); top: -20px; left: -20px; }
+    .badge { display: inline-block; background: #7B2D2D; color: #F2E8DC; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 24px; }
+    .emoji { font-size: 48px; margin-bottom: 16px; display: block; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 40px; font-weight: 900; line-height: 1.05; margin-bottom: 14px; color: #2C1810; }
+    h1 em { color: #7B2D2D; font-style: italic; }
+    p.desc { color: #5C3D2E; font-size: 14px; font-weight: 300; line-height: 1.7; margin-bottom: 24px; }
+    .divider { height: 2px; background: rgba(123,45,45,0.1); margin-bottom: 22px; border-radius: 2px; }
+    .check { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .check-dot { width: 22px; height: 22px; border-radius: 50%; background: #7B2D2D; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #F2E8DC; font-weight: 800; flex-shrink: 0; }
+    .check span { font-size: 13px; color: #2C1810; font-weight: 500; }
+    .cta { display: block; width: 100%; background: #C4714A; color: #fff; border-radius: 16px; padding: 18px 20px; font-size: 16px; font-weight: 700; text-align: center; text-decoration: none; transition: all 0.2s; margin-top: 28px; margin-bottom: 10px; }
     .cta:hover { opacity: 0.88; transform: scale(0.98); }
-    .footer { text-align: center; color: rgba(92,61,46,0.35); font-size: 11px; margin-top: 24px; }
-    .footer a { color: #C4714A; text-decoration: none; }
+    .cta-note { text-align: center; color: rgba(92,61,46,0.45); font-size: 11px; }
+    .footer { text-align: center; padding: 24px; }
+    .footer a { color: rgba(242,232,220,0.5); text-decoration: none; font-size: 12px; }
+    .footer a:hover { color: #F2E8DC; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+    .card { animation: fadeIn 0.5s ease both; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo"><span>Petit Bout de Com.</span></div>
-    <p class="tagline">Community Manager & Experte Business • Elsa</p>
+  <div class="logo-bar">
+    <div class="logo-text">Petit Bout de Com.</div>
+    <div class="tagline">Community Manager & Experte Business • Elsa</div>
+  </div>
+
+  <div class="page-wrap">
     <div class="card">
-      <div class="badge">Quiz gratuit • 2 min</div>
-      <div class="emoji">😬</div>
+      <div class="deco1"></div>
+      <div class="deco2"></div>
+      <span class="badge">Quiz gratuit • 2 min</span>
+      <span class="emoji">😬</span>
       <h1>Ton Insta tourne mais <em>personne n'achète ?</em></h1>
-      <p class="desc">Découvre <strong style="color:#2C1810;font-weight:600">exactement pourquoi</strong> ton compte Instagram ne convertit pas — et ce qu'il faut faire pour changer ça.</p>
+      <p class="desc">Découvre <strong style="color:#2C1810;font-weight:600">exactement pourquoi</strong> ton compte Instagram ne convertit pas et ce qu'il faut faire pour changer ça.</p>
       <div class="divider"></div>
       <div class="check"><div class="check-dot">✓</div><span>6 questions ciblées</span></div>
       <div class="check"><div class="check-dot">✓</div><span>Un diagnostic personnalisé</span></div>
       <div class="check"><div class="check-dot">✓</div><span>Une solution concrète</span></div>
       <a href="quiz.html" class="cta">🎯 Je veux savoir pourquoi →</a>
-      <p style="text-align:center;font-size:11px;color:rgba(92,61,46,0.35);margin:0">par <strong>Elsa • Petit Bout de Com</strong></p>
+      <p class="cta-note">par <strong>Elsa • Petit Bout de Com</strong></p>
     </div>
-    <div class="footer">
-      <a href="https://www.instagram.com/petitboutdecom/" target="_blank">@petitboutdecom</a>
-    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://www.instagram.com/petitboutdecom/" target="_blank">@petitboutdecom</a>
   </div>
 </body>
 </html>

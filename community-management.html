@@ -4,64 +4,66 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Community Management • Petit Bout de Com</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: linear-gradient(160deg, #F7F0E8 0%, #EDE0D0 100%); min-height: 100vh; font-family: 'Jost', sans-serif; color: #2C1810; }
-    .container { max-width: 520px; margin: 0 auto; padding: 40px 20px; }
-    .logo { text-align: center; margin-bottom: 32px; }
-    .logo span { font-family: 'Jost', sans-serif; font-size: 20px; font-weight: 700; color: #C4714A; }
-    .back { display: inline-flex; align-items: center; gap: 6px; color: rgba(92,61,46,0.5); font-size: 13px; text-decoration: none; margin-bottom: 24px; transition: color 0.2s; }
-    .back:hover { color: #C4714A; }
-    .card { background: #fff; border-radius: 24px; padding: 40px 32px; box-shadow: 0 20px 60px rgba(92,61,46,0.1); border: 1px solid rgba(196,113,74,0.15); }
-    .badge { display: inline-block; background: rgba(196,113,74,0.1); color: #C4714A; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; padding: 5px 12px; border-radius: 100px; margin-bottom: 20px; border: 1px solid rgba(196,113,74,0.2); }
-    .emoji { font-size: 44px; margin-bottom: 14px; }
-    h1 { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 700; line-height: 1.15; margin-bottom: 10px; color: #2C1810; }
-    h1 em { color: #C4714A; font-style: italic; }
-    .subtitle { color: #5C3D2E; font-size: 15px; font-weight: 300; line-height: 1.6; margin-bottom: 28px; }
-    .divider { height: 1px; background: rgba(92,61,46,0.1); margin-bottom: 24px; }
+    body { background: #7B2D2D; min-height: 100vh; font-family: 'Jost', sans-serif; }
+    .logo-bar { text-align: center; padding: 32px 20px 24px; }
+    .logo-text { font-size: 20px; font-weight: 800; color: #F2E8DC; }
+    .page-wrap { max-width: 480px; margin: 0 auto; padding: 0 20px 48px; }
+    .back { display: inline-flex; align-items: center; gap: 6px; color: rgba(242,232,220,0.55); font-size: 13px; text-decoration: none; margin-bottom: 16px; transition: color 0.2s; }
+    .back:hover { color: #F2E8DC; }
+    .card { background: #F2E8DC; border-radius: 28px; padding: 36px 28px; position: relative; overflow: hidden; animation: fadeIn 0.5s ease both; }
+    .deco1 { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(123,45,45,0.07); bottom: -60px; right: -60px; }
+    .deco2 { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: rgba(196,113,74,0.1); top: -30px; left: -30px; }
+    .badge { display: inline-block; background: #7B2D2D; color: #F2E8DC; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .emoji { font-size: 48px; margin-bottom: 12px; display: block; }
+    h1 { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 900; line-height: 1.0; margin-bottom: 10px; color: #2C1810; }
+    h1 em { color: #7B2D2D; font-style: italic; }
+    .subtitle { color: #5C3D2E; font-size: 15px; font-weight: 400; line-height: 1.6; margin-bottom: 24px; }
+    .divider { height: 2px; background: rgba(123,45,45,0.1); margin-bottom: 20px; border-radius: 2px; }
     .desc { color: #5C3D2E; font-size: 14px; font-weight: 300; line-height: 1.8; margin-bottom: 24px; }
-    .inclus { margin-bottom: 28px; }
-    .inclus-title { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #C4714A; margin-bottom: 14px; }
-    .inclus-item { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-    .inclus-dot { width: 20px; height: 20px; border-radius: 50%; background: rgba(196,113,74,0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #C4714A; font-weight: 700; flex-shrink: 0; }
-    .inclus-text { font-size: 13px; color: #5C3D2E; font-weight: 500; }
-    .price-box { background: rgba(196,113,74,0.07); border: 1px solid rgba(196,113,74,0.2); border-radius: 14px; padding: 20px 24px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; }
-    .price { font-family: 'Cormorant Garamond', serif; font-size: 42px; font-weight: 700; color: #2C1810; }
-    .price-label { font-size: 12px; color: rgba(92,61,46,0.5); font-weight: 400; }
-    .cta { display: block; width: 100%; background: linear-gradient(135deg, #C4714A, #7B2D2D); color: #fff; border: none; border-radius: 14px; padding: 17px 24px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: 'Jost', sans-serif; text-align: center; text-decoration: none; transition: all 0.2s ease; margin-bottom: 12px; }
+    .inclus-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #7B2D2D; margin-bottom: 14px; }
+    .item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .dot { width: 22px; height: 22px; border-radius: 50%; background: #7B2D2D; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #F2E8DC; font-weight: 800; flex-shrink: 0; }
+    .item span { font-size: 13px; color: #2C1810; font-weight: 500; }
+    .price-box { background: #7B2D2D; border-radius: 18px; padding: 20px 24px; margin: 24px 0; display: flex; align-items: center; justify-content: space-between; }
+    .price { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 900; color: #F2E8DC; line-height: 1; }
+    .price-label { font-size: 11px; color: rgba(242,232,220,0.55); margin-top: 4px; }
+    .cta { display: block; width: 100%; background: #C4714A; color: #fff; border-radius: 16px; padding: 18px 20px; font-size: 15px; font-weight: 700; text-align: center; text-decoration: none; transition: all 0.2s; margin-bottom: 10px; }
     .cta:hover { opacity: 0.88; transform: scale(0.98); }
-    .cta-note { text-align: center; color: rgba(92,61,46,0.4); font-size: 12px; }
+    .cta-note { text-align: center; color: rgba(92,61,46,0.45); font-size: 11px; }
+    .footer { text-align: center; padding: 24px; }
+    .footer a { color: rgba(242,232,220,0.4); text-decoration: none; font-size: 12px; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="logo"><span>Petit Bout de Com.</span></div>
+  <div class="logo-bar"><div class="logo-text">Petit Bout de Com.</div></div>
+  <div class="page-wrap">
     <a href="index.html" class="back">← Retour</a>
     <div class="card">
-      <div class="badge">Mensuel • Sur devis</div>
-      <div class="emoji">💼</div>
+      <div class="deco1"></div>
+      <div class="deco2"></div>
+      <span class="badge">Mensuel • Sur devis</span>
+      <span class="emoji">💼</span>
       <h1>Community<br /><em>Management</em></h1>
       <p class="subtitle">Tu te concentres sur ton business. Je gère le reste.</p>
       <div class="divider"></div>
-      <p class="desc">Tu passes des heures sur Instagram sans résultats et tu culpabilises quand tu ne publies pas. Je prends en charge la gestion complète de tes réseaux — stratégie, création de contenu, publication, engagement. Tu n'as plus à y penser.</p>
-      <div class="inclus">
-        <p class="inclus-title">Ce qui est inclus</p>
-        <div class="inclus-item"><div class="inclus-dot">✓</div><span class="inclus-text">Stratégie éditoriale mensuelle</span></div>
-        <div class="inclus-item"><div class="inclus-dot">✓</div><span class="inclus-text">Création et publication du contenu</span></div>
-        <div class="inclus-item"><div class="inclus-dot">✓</div><span class="inclus-text">Gestion des commentaires et DM</span></div>
-        <div class="inclus-item"><div class="inclus-dot">✓</div><span class="inclus-text">Reporting mensuel détaillé</span></div>
-      </div>
+      <p class="desc">Tu passes des heures sur Instagram sans résultats et tu culpabilises quand tu ne publies pas. Je prends en charge la gestion complète de tes réseaux : stratégie, création de contenu, publication, engagement. Tu n'as plus à y penser.</p>
+      <p class="inclus-title">Ce qui est inclus</p>
+      <div class="item"><div class="dot">✓</div><span>Stratégie éditoriale mensuelle</span></div>
+      <div class="item"><div class="dot">✓</div><span>Création et publication du contenu</span></div>
+      <div class="item"><div class="dot">✓</div><span>Gestion des commentaires et DM</span></div>
+      <div class="item"><div class="dot">✓</div><span>Reporting mensuel détaillé</span></div>
       <div class="price-box">
-        <div>
-          <div class="price">590€</div>
-          <div class="price-label">À partir de • Par mois</div>
-        </div>
-        <div style="font-size: 28px;">💼</div>
+        <div><div class="price">590€</div><div class="price-label">À partir de • Par mois</div></div>
+        <span style="font-size:36px">💼</span>
       </div>
       <a href="https://wa.me/590690063830" class="cta" target="_blank">→ Je veux déléguer mes réseaux</a>
       <p class="cta-note">Via WhatsApp • Réponse sous 24h</p>
     </div>
   </div>
+  <div class="footer"><a href="https://www.instagram.com/petitboutdecom/" target="_blank">@petitboutdecom</a></div>
 </body>
 </html>

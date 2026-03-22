@@ -4,216 +4,250 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz • Petit Bout de Com</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,400;1,600;1,700&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #F7F0E8; min-height: 100vh; font-family: 'Jost', sans-serif; }
-
-    .fade-in { animation: fadeIn 0.5s ease both; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-    .option-btn { transition: all 0.2s ease; }
-    .option-btn:hover { background: rgba(196,113,74,0.12) !important; border-color: #C4714A !important; transform: translateX(5px); }
-
-    .start-btn:hover, .cta-btn:hover { opacity: 0.88; transform: scale(0.98); }
-    .retry-btn:hover { background: rgba(92,61,46,0.06) !important; }
-
+    body { background: #7B2D2D; min-height: 100vh; font-family: 'Jost', sans-serif; }
+    .fade { animation: fadeIn 0.4s ease both; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    .opt:hover { background: rgba(123,45,45,0.08) !important; border-color: #7B2D2D !important; transform: translateX(4px); }
+    .cta-btn:hover, .start-btn:hover { opacity: 0.88; transform: scale(0.98); }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(196,113,74,0.4); } 50% { box-shadow: 0 0 0 12px rgba(196,113,74,0); } }
     .pulse { animation: pulse 2.5s infinite; }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(196,113,74,0.35); } 50% { box-shadow: 0 0 0 14px rgba(196,113,74,0); } }
-
-    input:focus { border-color: #C4714A !important; outline: none; }
-    input::placeholder { color: rgba(92,61,46,0.35); }
+    input:focus { border-color: #7B2D2D !important; outline: none; }
+    input::placeholder { color: rgba(92,61,46,0.3); }
+    input.error { border-color: #c0392b !important; }
   </style>
 </head>
 <body>
   <div id="root"></div>
   <script type="text/babel">
-
-    const FORMSPREE_URL = "https://formspree.io/f/xreyvoyb";
+    const FORMSPREE = "https://formspree.io/f/xreyvoyb";
+    const WA = "https://wa.me/590690063830";
 
     const questions = [
-      { id:1, question:"Quand tu penses à ton Instagram en ce moment, tu te dis…", options:[{label:"A",text:"Je sais pas quoi publier",value:"A"},{label:"B",text:"Mon contenu est nul visuellement",value:"B"},{label:"C",text:"J'ai pas le temps de m'en occuper",value:"C"},{label:"D",text:"Mon profil ne reflète pas ce que je vaux",value:"D"}] },
-      { id:2, question:"À quelle fréquence tu publies ?", options:[{label:"A",text:"Quand l'inspiration vient (rarement)",value:"A"},{label:"B",text:"Je publie mais c'est pas terrible",value:"B"},{label:"C",text:"Presque jamais, je suis trop occupée",value:"C"},{label:"D",text:"Je publie mais ça ne convertit pas",value:"D"}] },
-      { id:3, question:"Quand tu crées un post, ton plus gros blocage c'est…", options:[{label:"A",text:"Trouver les idées",value:"A"},{label:"B",text:"La qualité des photos/vidéos",value:"B"},{label:"C",text:"Trouver le temps de le faire",value:"C"},{label:"D",text:"Ne pas savoir comment me mettre en valeur",value:"D"}] },
-      { id:4, question:"Ce qui te frustre le plus sur Insta c'est…", options:[{label:"A",text:"Ne pas savoir quoi dire",value:"A"},{label:"B",text:"Un feed qui ne me ressemble pas",value:"B"},{label:"C",text:"Les réseaux qui prennent trop de temps",value:"C"},{label:"D",text:"Des prospects qui ne passent pas à l'action",value:"D"}] },
-      { id:5, question:"Quand quelqu'un arrive sur ton profil, tu penses qu'il repart parce que…", options:[{label:"A",text:"Le message n'est pas clair",value:"A"},{label:"B",text:"Les visuels ne donnent pas confiance",value:"B"},{label:"C",text:"Il n'y a pas assez de contenu",value:"C"},{label:"D",text:"L'identité visuelle n'est pas pro",value:"D"}] },
-      { id:6, question:"Si tu pouvais régler UN truc maintenant ce serait…", options:[{label:"A",text:"Avoir une vraie stratégie de contenu",value:"A"},{label:"B",text:"Avoir du contenu pro prêt à publier",value:"B"},{label:"C",text:"Déléguer la gestion de mes réseaux",value:"C"},{label:"D",text:"Refaire mon image de marque",value:"D"}] },
+      { id:1, q:"Quand tu penses à ton Instagram en ce moment, tu te dis…", opts:[{l:"A",t:"Je sais pas quoi publier",v:"A"},{l:"B",t:"Mon contenu est nul visuellement",v:"B"},{l:"C",t:"J'ai pas le temps de m'en occuper",v:"C"},{l:"D",t:"Mon profil ne reflète pas ce que je vaux",v:"D"}] },
+      { id:2, q:"À quelle fréquence tu publies ?", opts:[{l:"A",t:"Quand l'inspiration vient (rarement)",v:"A"},{l:"B",t:"Je publie mais c'est pas terrible",v:"B"},{l:"C",t:"Presque jamais, je suis trop occupée",v:"C"},{l:"D",t:"Je publie mais ça ne convertit pas",v:"D"}] },
+      { id:3, q:"Quand tu crées un post, ton plus gros blocage c'est…", opts:[{l:"A",t:"Trouver les idées",v:"A"},{l:"B",t:"La qualité des photos/vidéos",v:"B"},{l:"C",t:"Trouver le temps de le faire",v:"C"},{l:"D",t:"Ne pas savoir comment me mettre en valeur",v:"D"}] },
+      { id:4, q:"Ce qui te frustre le plus sur Insta c'est…", opts:[{l:"A",t:"Ne pas savoir quoi dire",v:"A"},{l:"B",t:"Un feed qui ne me ressemble pas",v:"B"},{l:"C",t:"Les réseaux qui prennent trop de temps",v:"C"},{l:"D",t:"Des prospects qui ne passent pas à l'action",v:"D"}] },
+      { id:5, q:"Quand quelqu'un arrive sur ton profil, tu penses qu'il repart parce que…", opts:[{l:"A",t:"Le message n'est pas clair",v:"A"},{l:"B",t:"Les visuels ne donnent pas confiance",v:"B"},{l:"C",t:"Il n'y a pas assez de contenu",v:"C"},{l:"D",t:"L'identité visuelle n'est pas pro",v:"D"}] },
+      { id:6, q:"Si tu pouvais régler UN truc maintenant ce serait…", opts:[{l:"A",t:"Avoir une vraie stratégie de contenu",v:"A"},{l:"B",t:"Avoir du contenu pro prêt à publier",v:"B"},{l:"C",t:"Déléguer la gestion de mes réseaux",v:"C"},{l:"D",t:"Refaire mon image de marque",v:"D"}] },
     ];
 
     const results = {
-      A: { emoji:"🎯", title:"Ton problème : tu navigues à vue", description:"Tu as l'envie, tu as l'offre, mais tu ne sais pas quoi dire ni comment le dire. Du coup tu publies quand tu peux, sans vraie direction. Et Insta ne te ramène rien.", reframe:"Ce qu'il te faut c'est pas plus de contenu. C'est une stratégie claire en 1h.", offer:"Coaching Express", ctaLink:"https://wa.me/590690063830", cta:"Réserve ton Coaching Express", ctaDesc:"On diagnostique, on clarifie, tu repars avec un plan d'action concret." },
-      B: { emoji:"📸", title:"Ton problème : ton contenu ne te rend pas justice", description:"Tu sais ce que tu veux dire mais visuellement ça ne suit pas. Tes photos sont floues, tes vidéos bancales. Résultat : les gens ne s'arrêtent pas sur ton contenu.", reframe:"Ce qu'il te faut c'est pas un énième tuto. C'est du contenu pro, prêt à publier.", offer:"Drop Day", ctaLink:"https://wa.me/590690063830", cta:"Réserve ton Drop Day", ctaDesc:"3h ensemble, des semaines de contenu livré sous 72h." },
-      C: { emoji:"💼", title:"Ton problème : Instagram te coûte plus que tu ne gagnes", description:"Tu passes du temps sur les réseaux sans résultats. Tu culpabilises quand tu ne publies pas. Et au final tu n'as plus d'énergie pour ton vrai business.", reframe:"Ce qu'il te faut c'est pas une formation de plus. C'est quelqu'un qui s'en occupe à ta place.", offer:"Community Management", ctaLink:"https://wa.me/590690063830", cta:"Découvre le Community Management", ctaDesc:"Tu te concentres sur ton business, je gère le reste." },
-      D: { emoji:"✨", title:"Ton problème : ton profil ne reflète pas ta valeur", description:"Tu es pro, ton offre est solide, mais ton Instagram ne le montre pas. Ton identité visuelle est floue, tes photos ne donnent pas confiance. Les gens arrivent et repartent.", reframe:"Ce qu'il te faut c'est pas juste un nouveau logo. C'est une image de marque qui vend avant même que tu parles.", offer:"Brand Refresh", ctaLink:"https://wa.me/590690063830", cta:"Découvre le Brand Refresh", ctaDesc:"Photo, templates, logo, identité — on repart de zéro." },
+      A: { emoji:"🎯", title:"Ton problème : tu navigues à vue", desc:"Tu as l'envie, tu as l'offre, mais tu ne sais pas quoi dire ni comment le dire. Du coup tu publies quand tu peux, sans vraie direction. Et Insta ne te ramène rien.", reframe:"Ce qu'il te faut c'est pas plus de contenu. C'est une stratégie claire en 1h.", offer:"Coaching Express", cta:"Réserve ton Coaching Express", ctaNote:"On diagnostique, on clarifie, tu repars avec un plan d'action concret." },
+      B: { emoji:"📸", title:"Ton problème : ton contenu ne te rend pas justice", desc:"Tu sais ce que tu veux dire mais visuellement ça ne suit pas. Résultat : les gens ne s'arrêtent pas sur ton contenu.", reframe:"Ce qu'il te faut c'est pas un énième tuto. C'est du contenu prêt à publier.", offer:"Drop Day", cta:"Réserve ton Drop Day", ctaNote:"3h ensemble, des semaines de contenu livré sous 72h." },
+      C: { emoji:"💼", title:"Ton problème : Instagram te coûte plus que tu ne gagnes", desc:"Tu passes du temps sur les réseaux sans résultats. Tu culpabilises quand tu ne publies pas. Et au final tu n'as plus d'énergie pour ton vrai business.", reframe:"Ce qu'il te faut c'est pas une formation de plus. C'est quelqu'un qui s'en occupe à ta place.", offer:"Community Management", cta:"Découvre le Community Management", ctaNote:"Tu te concentres sur ton business, je gère le reste." },
+      D: { emoji:"✨", title:"Ton problème : ton profil ne reflète pas ta valeur", desc:"Tu es pro, ton offre est solide, mais ton Instagram ne le montre pas. Les gens arrivent sur ton profil et repartent.", reframe:"Ce qu'il te faut c'est pas juste un nouveau logo. C'est une image de marque qui vend avant même que tu parles.", offer:"Brand Refresh", cta:"Découvre le Brand Refresh", ctaNote:"Photo, templates, logo, identité : on repart de zéro." },
     };
 
-    function getResultKey(answers) {
-      const count = {A:0,B:0,C:0,D:0};
-      answers.forEach(a => { if(a) count[a]++; });
-      return Object.entries(count).sort((a,b) => b[1]-a[1])[0][0];
+    function getKey(answers) {
+      const c = {A:0,B:0,C:0,D:0};
+      answers.forEach(a => { if(a) c[a]++; });
+      return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0];
+    }
+
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
+    }
+
+    function isValidName(name) {
+      return name.trim().length >= 2;
+    }
+
+    const B = "#7B2D2D";
+    const CR = "#F2E8DC";
+    const T = "#C4714A";
+    const DK = "#2C1810";
+    const SD = "#5C3D2E";
+
+    const card = { background:CR, borderRadius:28, padding:"36px 28px", position:"relative", overflow:"hidden" };
+    const badge = { display:"inline-block", background:B, color:CR, fontSize:10, fontWeight:800, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:20 };
+    const primaryBtn = { width:"100%", background:T, color:"#fff", border:"none", borderRadius:16, padding:"18px 20px", fontSize:15, fontWeight:700, cursor:"pointer", fontFamily:"'Jost',sans-serif", marginBottom:10, transition:"all 0.2s", letterSpacing:"0.01em" };
+
+    function Deco() {
+      return <>
+        <div style={{position:"absolute",width:150,height:150,borderRadius:"50%",background:"rgba(123,45,45,0.07)",bottom:-60,right:-60}} />
+        <div style={{position:"absolute",width:90,height:90,borderRadius:"50%",background:"rgba(196,113,74,0.1)",top:-30,left:-30}} />
+      </>;
+    }
+
+    function Logo() {
+      return (
+        <div style={{textAlign:"center", padding:"32px 20px 24px"}}>
+          <div style={{fontSize:20, fontWeight:800, color:CR, fontFamily:"'Jost',sans-serif"}}>Petit Bout de Com.</div>
+        </div>
+      );
     }
 
     function Quiz() {
       const [screen, setScreen] = React.useState("intro");
-      const [current, setCurrent] = React.useState(0);
+      const [cur, setCur] = React.useState(0);
       const [answers, setAnswers] = React.useState([]);
-      const [selected, setSelected] = React.useState(null);
+      const [sel, setSel] = React.useState(null);
       const [prenom, setPrenom] = React.useState("");
       const [email, setEmail] = React.useState("");
-      const [instagram, setInstagram] = React.useState("");
-      const [submitting, setSubmitting] = React.useState(false);
-      const [submitError, setSubmitError] = React.useState("");
+      const [insta, setInsta] = React.useState("");
+      const [sending, setSending] = React.useState(false);
+      const [errors, setErrors] = React.useState({});
 
-      const resultKey = screen === "result" ? getResultKey(answers) : null;
-      const result = resultKey ? results[resultKey] : null;
-      const progress = (current / questions.length) * 100;
+      const rKey = screen==="result" ? getKey(answers) : null;
+      const result = rKey ? results[rKey] : null;
+      const progress = (cur/questions.length)*100;
 
-      const handleStart = () => { setScreen("quiz"); setCurrent(0); setAnswers([]); setSelected(null); setPrenom(""); setEmail(""); setInstagram(""); };
+      const reset = () => { setScreen("intro"); setCur(0); setAnswers([]); setSel(null); setPrenom(""); setEmail(""); setInsta(""); setErrors({}); };
 
-      const handleNext = () => {
-        if (!selected) return;
-        const newAnswers = [...answers, selected];
-        setAnswers(newAnswers);
-        setSelected(null);
-        if (current + 1 < questions.length) { setCurrent(current + 1); }
-        else { setScreen("capture"); }
+      const next = () => {
+        if(!sel) return;
+        const na = [...answers, sel];
+        setAnswers(na); setSel(null);
+        if(cur+1 < questions.length) setCur(cur+1);
+        else setScreen("capture");
       };
 
-      const handleSubmit = async () => {
-        if (!prenom || !email) { setSubmitError("Merci de renseigner ton prénom et ton email 💜"); return; }
-        setSubmitting(true); setSubmitError("");
-        const finalKey = getResultKey(answers);
-        const finalResult = results[finalKey];
-        const detailedAnswers = questions.map((q,i) => { const opt = q.options.find(o => o.value===answers[i]); return `Q${i+1}: ${opt?opt.text:"—"}`; }).join(" | ");
+      const validate = () => {
+        const e = {};
+        if(!isValidName(prenom)) e.prenom = "Merci d'entrer ton prénom (minimum 2 caractères)";
+        if(!isValidEmail(email)) e.email = "Merci d'entrer une adresse email valide (ex: marie@gmail.com)";
+        setErrors(e);
+        return Object.keys(e).length === 0;
+      };
+
+      const submit = async () => {
+        if(!validate()) return;
+        setSending(true);
+        const fk = getKey(answers);
+        const fr = results[fk];
+        const det = questions.map((q,i) => { const o = q.opts.find(o=>o.v===answers[i]); return `Q${i+1}: ${o?o.t:""}`;}).join(" | ");
         try {
-          await fetch(FORMSPREE_URL, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ Prénom:prenom, Email:email, Instagram:instagram||"Non renseigné", Résultat:finalResult.offer, Problème:finalResult.title, Réponses:detailedAnswers }) });
-          setScreen("result");
-        } catch(e) { setSubmitError("Une erreur s'est produite. Réessaie 🙏🏾"); }
-        setSubmitting(false);
+          await fetch(FORMSPREE, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ Prénom:prenom.trim(), Email:email.trim(), Instagram:insta||"Non renseigné", Résultat:fr.offer, Problème:fr.title, Réponses:det }) });
+        } catch(e) {}
+        setSending(false);
+        setScreen("result");
       };
-
-      // COLORS
-      const C = { terra:"#C4714A", cream:"#F2E8DC", bordeaux:"#7B2D2D", sand:"#5C3D2E", dark:"#2C1810", bg:"#F7F0E8", white:"#fff" };
 
       return (
-        <div style={{minHeight:"100vh", background:`linear-gradient(160deg, #F7F0E8 0%, #F0E4D4 100%)`, display:"flex", alignItems:"center", justifyContent:"center", padding:"24px 16px", fontFamily:"'Jost', sans-serif"}}>
+        <div style={{minHeight:"100vh", background:B}}>
+          <Logo />
+          <div style={{maxWidth:480, margin:"0 auto", padding:"0 20px 48px"}}>
 
-          {/* INTRO */}
-          {screen === "intro" && (
-            <div className="fade-in" style={{width:"100%", maxWidth:460, background:C.white, borderRadius:28, padding:"44px 36px", boxShadow:"0 20px 60px rgba(92,61,46,0.12)", border:`1px solid rgba(196,113,74,0.15)`}}>
-              <div style={{display:"inline-block", background:`rgba(196,113,74,0.1)`, color:C.terra, fontSize:11, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:24, border:`1px solid rgba(196,113,74,0.2)`}}>
-                Quiz gratuit • 2 min
-              </div>
-              <div style={{fontSize:48, marginBottom:16}}>😬</div>
-              <h1 style={{fontFamily:"'Cormorant Garamond', serif", fontSize:36, fontWeight:700, color:C.dark, lineHeight:1.15, marginBottom:16}}>
-                Ton Insta tourne<br />
-                <em style={{color:C.terra}}>mais personne n'achète ?</em>
-              </h1>
-              <p style={{color:C.sand, fontSize:15, lineHeight:1.7, marginBottom:28, fontWeight:300}}>
-                Découvre <strong style={{fontWeight:600, color:C.dark}}>exactement pourquoi</strong> ton compte Instagram ne convertit pas — et ce qu'il faut faire pour changer ça.
-              </p>
-              <div style={{height:1, background:`rgba(92,61,46,0.1)`, marginBottom:24}} />
-              <div style={{display:"flex", flexDirection:"column", gap:10, marginBottom:32}}>
-                {["6 questions ciblées","Un diagnostic personnalisé","Une solution concrète"].map(t => (
-                  <div key={t} style={{display:"flex", alignItems:"center", gap:10}}>
-                    <div style={{width:20, height:20, borderRadius:"50%", background:`rgba(196,113,74,0.15)`, display:"flex", alignItems:"center", justifyContent:"center", fontSize:11}}>✓</div>
-                    <span style={{fontSize:14, color:C.sand, fontWeight:500}}>{t}</span>
+            {/* INTRO */}
+            {screen==="intro" && (
+              <div style={card} className="fade">
+                <Deco />
+                <span style={badge}>Quiz gratuit • 2 min</span>
+                <div style={{fontSize:48, marginBottom:16}}>😬</div>
+                <h1 style={{fontFamily:"'Cormorant Garamond',serif", fontSize:40, fontWeight:900, lineHeight:1.05, marginBottom:14, color:DK}}>
+                  Ton Insta tourne mais <em style={{color:B}}>personne n'achète ?</em>
+                </h1>
+                <p style={{color:SD, fontSize:14, fontWeight:300, lineHeight:1.7, marginBottom:24}}>
+                  Découvre <strong style={{color:DK, fontWeight:600}}>exactement pourquoi</strong> ton compte Instagram ne convertit pas et ce qu'il faut faire pour changer ça.
+                </p>
+                <div style={{height:2, background:"rgba(123,45,45,0.1)", marginBottom:22, borderRadius:2}} />
+                {["6 questions ciblées","Un diagnostic personnalisé","Une solution concrète"].map(t=>(
+                  <div key={t} style={{display:"flex", alignItems:"center", gap:12, marginBottom:10}}>
+                    <div style={{width:22,height:22,borderRadius:"50%",background:B,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:CR,fontWeight:800,flexShrink:0}}>✓</div>
+                    <span style={{fontSize:13,color:DK,fontWeight:500}}>{t}</span>
                   </div>
                 ))}
+                <div style={{height:24}} />
+                <button className="start-btn cta-btn" onClick={()=>setScreen("quiz")} style={primaryBtn}>Je veux savoir pourquoi →</button>
+                <p style={{textAlign:"center",color:"rgba(92,61,46,0.4)",fontSize:11}}>par <strong>Elsa • Petit Bout de Com</strong></p>
               </div>
-              <button className="start-btn" onClick={handleStart} style={{width:"100%", background:`linear-gradient(135deg, #C4714A, #7B2D2D)`, color:C.white, border:"none", borderRadius:14, padding:"17px 24px", fontSize:16, fontWeight:600, cursor:"pointer", fontFamily:"'Jost', sans-serif", marginBottom:16, letterSpacing:"0.02em"}}>
-                Je veux savoir pourquoi →
-              </button>
-              <p style={{textAlign:"center", color:`rgba(92,61,46,0.4)`, fontSize:12}}>par <strong>Elsa • Petit Bout de Com</strong></p>
-            </div>
-          )}
+            )}
 
-          {/* QUIZ */}
-          {screen === "quiz" && (
-            <div className="fade-in" style={{width:"100%", maxWidth:460, background:C.white, borderRadius:28, padding:"40px 36px", boxShadow:"0 20px 60px rgba(92,61,46,0.12)", border:`1px solid rgba(196,113,74,0.15)`}}>
-              {/* Progress */}
-              <div style={{display:"flex", alignItems:"center", gap:12, marginBottom:36}}>
-                <div style={{flex:1, height:5, background:`rgba(92,61,46,0.08)`, borderRadius:100, overflow:"hidden"}}>
-                  <div style={{height:"100%", width:`${progress}%`, background:`linear-gradient(90deg, #C4714A, #7B2D2D)`, borderRadius:100, transition:"width 0.4s ease"}} />
+            {/* QUIZ */}
+            {screen==="quiz" && (
+              <div style={card} className="fade">
+                <Deco />
+                <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:32}}>
+                  <div style={{flex:1,height:6,background:"rgba(123,45,45,0.1)",borderRadius:100,overflow:"hidden"}}>
+                    <div style={{height:"100%",width:`${progress}%`,background:`linear-gradient(90deg,${B},${T})`,borderRadius:100,transition:"width 0.4s ease"}} />
+                  </div>
+                  <span style={{color:"rgba(92,61,46,0.45)",fontSize:11,fontWeight:700}}>{cur+1} / {questions.length}</span>
                 </div>
-                <span style={{color:`rgba(92,61,46,0.4)`, fontSize:12, fontWeight:600, whiteSpace:"nowrap"}}>{current+1} / {questions.length}</span>
+                <p style={{color:B,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:8}}>Question {cur+1}</p>
+                <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:700,color:DK,lineHeight:1.3,marginBottom:24}}>{questions[cur].q}</h2>
+                <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
+                  {questions[cur].opts.map(opt=>(
+                    <button key={opt.v} className="opt" onClick={()=>setSel(opt.v)}
+                      style={{display:"flex",alignItems:"center",gap:12,padding:"13px 16px",border:`2px solid ${sel===opt.v?B:"rgba(123,45,45,0.15)"}`,borderRadius:12,cursor:"pointer",fontSize:13,fontFamily:"'Jost',sans-serif",fontWeight:500,textAlign:"left",lineHeight:1.4,background:sel===opt.v?"rgba(123,45,45,0.08)":CR,color:sel===opt.v?DK:"rgba(92,61,46,0.7)",transition:"all 0.2s"}}>
+                      <span style={{minWidth:28,height:28,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12,flexShrink:0,background:sel===opt.v?B:"rgba(123,45,45,0.1)",color:sel===opt.v?CR:SD,transition:"all 0.2s"}}>{opt.l}</span>
+                      {opt.t}
+                    </button>
+                  ))}
+                </div>
+                <button onClick={next} disabled={!sel} style={{...primaryBtn,background:sel?T:"rgba(123,45,45,0.15)",color:sel?"#fff":"rgba(92,61,46,0.35)",cursor:sel?"pointer":"not-allowed",marginBottom:0}}>
+                  {cur+1===questions.length?"Voir mon résultat →":"Suivant →"}
+                </button>
               </div>
+            )}
 
-              <p style={{color:C.terra, fontSize:11, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", marginBottom:10}}>Question {current+1}</p>
-              <h2 style={{fontFamily:"'Cormorant Garamond', serif", fontSize:26, fontWeight:700, color:C.dark, lineHeight:1.3, marginBottom:28}}>{questions[current].question}</h2>
+            {/* CAPTURE */}
+            {screen==="capture" && (
+              <div style={card} className="fade">
+                <Deco />
+                <span style={badge}>Dernière étape ✨</span>
+                <div style={{fontSize:44,marginBottom:12}}>🎯</div>
+                <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:900,color:DK,lineHeight:1.1,marginBottom:10}}>Ton diagnostic est prêt !</h2>
+                <p style={{color:SD,fontSize:14,fontWeight:300,lineHeight:1.6,marginBottom:24}}>Laisse-moi tes infos pour recevoir ton résultat personnalisé 👇🏾</p>
 
-              <div style={{display:"flex", flexDirection:"column", gap:10, marginBottom:28}}>
-                {questions[current].options.map(opt => (
-                  <button key={opt.value} className="option-btn" onClick={() => setSelected(opt.value)} style={{display:"flex", alignItems:"center", gap:14, padding:"14px 18px", border:`1.5px solid ${selected===opt.value?C.terra:"rgba(92,61,46,0.12)"}`, borderRadius:12, cursor:"pointer", fontSize:14, fontFamily:"'Jost', sans-serif", fontWeight:500, textAlign:"left", lineHeight:1.4, background:selected===opt.value?`rgba(196,113,74,0.08)`:C.white, color:selected===opt.value?C.dark:`rgba(92,61,46,0.7)`}}>
-                    <span style={{minWidth:30, height:30, borderRadius:8, display:"flex", alignItems:"center", justifyContent:"center", fontWeight:700, fontSize:13, flexShrink:0, background:selected===opt.value?C.terra:`rgba(92,61,46,0.08)`, color:selected===opt.value?C.white:C.sand}}>{opt.label}</span>
-                    {opt.text}
-                  </button>
+                {[
+                  {label:"Ton prénom *", type:"text", placeholder:"Marie", value:prenom, set:setPrenom, err:errors.prenom, field:"prenom"},
+                  {label:"Ton email *", type:"email", placeholder:"marie@gmail.com", value:email, set:setEmail, err:errors.email, field:"email"},
+                  {label:"Ton compte Instagram (optionnel)", type:"text", placeholder:"@moncompte", value:insta, set:setInsta, err:null, field:"insta"},
+                ].map(f=>(
+                  <div key={f.field} style={{marginBottom:16}}>
+                    <label style={{display:"block",color:SD,fontSize:12,fontWeight:700,marginBottom:6}}>{f.label}</label>
+                    <input
+                      type={f.type}
+                      placeholder={f.placeholder}
+                      value={f.value}
+                      onChange={e=>{ f.set(e.target.value); if(errors[f.field]) setErrors(prev=>({...prev,[f.field]:null})); }}
+                      className={f.err?"error":""}
+                      style={{width:"100%",background:"rgba(123,45,45,0.05)",border:`2px solid ${f.err?"#c0392b":"rgba(123,45,45,0.15)"}`,borderRadius:12,padding:"13px 16px",color:DK,fontSize:14,fontFamily:"'Jost',sans-serif",transition:"border-color 0.2s"}}
+                    />
+                    {f.err && <p style={{color:"#c0392b",fontSize:11,marginTop:5,fontWeight:500}}>{f.err}</p>}
+                  </div>
                 ))}
+
+                <button className="cta-btn" onClick={submit} disabled={sending} style={{...primaryBtn,opacity:sending?0.6:1,cursor:sending?"not-allowed":"pointer",marginTop:8}}>
+                  {sending?"Envoi en cours…":"Voir mon diagnostic →"}
+                </button>
+                <p style={{textAlign:"center",color:"rgba(92,61,46,0.3)",fontSize:11,marginTop:4}}>🔒 Tes infos restent confidentielles. Pas de spam.</p>
               </div>
+            )}
 
-              <button onClick={handleNext} disabled={!selected} style={{width:"100%", background:selected?`linear-gradient(135deg, #C4714A, #7B2D2D)`:`rgba(92,61,46,0.08)`, color:selected?C.white:`rgba(92,61,46,0.3)`, border:"none", borderRadius:14, padding:"16px 24px", fontSize:15, fontWeight:600, cursor:selected?"pointer":"not-allowed", fontFamily:"'Jost', sans-serif", transition:"all 0.2s ease"}}>
-                {current+1===questions.length?"Voir mon résultat →":"Suivant →"}
-              </button>
-            </div>
-          )}
-
-          {/* CAPTURE */}
-          {screen === "capture" && (
-            <div className="fade-in" style={{width:"100%", maxWidth:460, background:C.white, borderRadius:28, padding:"40px 36px", boxShadow:"0 20px 60px rgba(92,61,46,0.12)", border:`1px solid rgba(196,113,74,0.15)`}}>
-              <div style={{display:"inline-block", background:`rgba(196,113,74,0.1)`, color:C.terra, fontSize:11, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:20, border:`1px solid rgba(196,113,74,0.2)`}}>Dernière étape ✨</div>
-              <div style={{fontSize:44, marginBottom:14}}>🎯</div>
-              <h2 style={{fontFamily:"'Cormorant Garamond', serif", fontSize:30, fontWeight:700, color:C.dark, lineHeight:1.2, marginBottom:10}}>Ton diagnostic est prêt !</h2>
-              <p style={{color:C.sand, fontSize:15, lineHeight:1.6, marginBottom:28, fontWeight:300}}>Laisse-moi tes infos pour recevoir ton résultat personnalisé 👇🏾</p>
-
-              {[
-                {label:"Ton prénom *", type:"text", placeholder:"ex: Marie", value:prenom, onChange:e=>setPrenom(e.target.value)},
-                {label:"Ton email *", type:"email", placeholder:"ex: marie@gmail.com", value:email, onChange:e=>setEmail(e.target.value)},
-                {label:"Ton compte Instagram (optionnel)", type:"text", placeholder:"ex: @moncompte", value:instagram, onChange:e=>setInstagram(e.target.value)},
-              ].map(f => (
-                <div key={f.label} style={{marginBottom:16}}>
-                  <label style={{display:"block", color:C.sand, fontSize:13, fontWeight:600, marginBottom:6}}>{f.label}</label>
-                  <input type={f.type} placeholder={f.placeholder} value={f.value} onChange={f.onChange} style={{width:"100%", background:`rgba(92,61,46,0.04)`, border:`1.5px solid rgba(92,61,46,0.12)`, borderRadius:12, padding:"13px 16px", color:C.dark, fontSize:14, fontFamily:"'Jost', sans-serif", transition:"border-color 0.2s ease"}} />
+            {/* RESULT */}
+            {screen==="result" && result && (
+              <div style={card} className="fade">
+                <Deco />
+                <span style={badge}>Ton diagnostic</span>
+                <div style={{fontSize:44,marginBottom:12}}>{result.emoji}</div>
+                <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:30,fontWeight:900,color:DK,lineHeight:1.15,marginBottom:12}}>{result.title}</h2>
+                <p style={{color:SD,fontSize:14,fontWeight:300,lineHeight:1.8,marginBottom:18}}>{result.desc}</p>
+                <div style={{background:B,borderRadius:16,padding:"16px 20px",marginBottom:18}}>
+                  <p style={{fontFamily:"'Cormorant Garamond',serif",color:CR,fontSize:18,fontWeight:700,lineHeight:1.5,fontStyle:"italic"}}>{result.reframe}</p>
                 </div>
-              ))}
-
-              {submitError && <p style={{color:"#c0392b", fontSize:13, marginBottom:16, textAlign:"center"}}>{submitError}</p>}
-
-              <button className="cta-btn" onClick={handleSubmit} disabled={submitting} style={{width:"100%", background:`linear-gradient(135deg, #C4714A, #7B2D2D)`, color:C.white, border:"none", borderRadius:14, padding:"16px 24px", fontSize:15, fontWeight:600, cursor:"pointer", fontFamily:"'Jost', sans-serif", marginBottom:12, opacity:submitting?0.6:1}}>
-                {submitting?"Envoi en cours…":"Voir mon diagnostic →"}
-              </button>
-              <p style={{color:`rgba(92,61,46,0.35)`, fontSize:11, textAlign:"center", lineHeight:1.5}}>🔒 Tes infos restent confidentielles. Pas de spam, promis.</p>
-            </div>
-          )}
-
-          {/* RESULT */}
-          {screen === "result" && result && (
-            <div className="fade-in" style={{width:"100%", maxWidth:460, background:C.white, borderRadius:28, padding:"40px 36px", boxShadow:"0 20px 60px rgba(92,61,46,0.12)", border:`1px solid rgba(196,113,74,0.15)`}}>
-              <div style={{display:"inline-block", background:`rgba(196,113,74,0.1)`, color:C.terra, fontSize:11, fontWeight:700, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:20, border:`1px solid rgba(196,113,74,0.2)`}}>Ton diagnostic</div>
-              <div style={{fontSize:44, marginBottom:14}}>{result.emoji}</div>
-              <h2 style={{fontFamily:"'Cormorant Garamond', serif", fontSize:30, fontWeight:700, color:C.dark, lineHeight:1.2, marginBottom:14}}>{result.title}</h2>
-              <p style={{color:C.sand, fontSize:14, lineHeight:1.8, marginBottom:20, fontWeight:300}}>{result.description}</p>
-
-              <div style={{background:`rgba(196,113,74,0.08)`, border:`1px solid rgba(196,113,74,0.2)`, borderRadius:14, padding:"18px 20px", marginBottom:20, borderLeft:`4px solid ${C.terra}`}}>
-                <p style={{color:C.dark, fontSize:14, fontWeight:600, lineHeight:1.6, fontStyle:"italic", fontFamily:"'Cormorant Garamond', serif", fontSize:17}}>{result.reframe}</p>
+                <p style={{color:B,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:14}}>→ {result.offer}</p>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="cta-btn pulse"
+                  style={{...primaryBtn,display:"block",textAlign:"center",textDecoration:"none"}}>
+                  {result.cta}
+                </a>
+                <p style={{color:"rgba(92,61,46,0.4)",fontSize:11,textAlign:"center",lineHeight:1.5,marginBottom:16}}>{result.ctaNote}</p>
+                <button onClick={reset} style={{width:"100%",background:"transparent",color:"rgba(92,61,46,0.35)",border:"2px solid rgba(123,45,45,0.12)",borderRadius:12,padding:"12px",fontSize:13,cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>
+                  Refaire le quiz
+                </button>
               </div>
+            )}
 
-              <p style={{color:C.terra, fontSize:12, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14}}>→ {result.offer}</p>
-
-              <a href={result.ctaLink} target="_blank" rel="noopener noreferrer" className="cta-btn pulse" style={{width:"100%", background:`linear-gradient(135deg, #C4714A, #7B2D2D)`, color:C.white, borderRadius:14, padding:"17px 24px", fontSize:15, fontWeight:600, cursor:"pointer", fontFamily:"'Jost', sans-serif", marginBottom:10, display:"block", textAlign:"center", textDecoration:"none"}}>
-                {result.cta}
-              </a>
-              <p style={{color:`rgba(92,61,46,0.4)`, fontSize:12, textAlign:"center", lineHeight:1.5, marginBottom:20}}>{result.ctaDesc}</p>
-
-              <button className="retry-btn" onClick={handleStart} style={{width:"100%", background:"transparent", color:`rgba(92,61,46,0.35)`, border:`1px solid rgba(92,61,46,0.12)`, borderRadius:12, padding:"12px", fontSize:13, cursor:"pointer", fontFamily:"'Jost', sans-serif"}}>
-                Refaire le quiz
-              </button>
-            </div>
-          )}
-
+          </div>
+          <div style={{textAlign:"center",paddingBottom:24}}>
+            <a href="https://www.instagram.com/petitboutdecom/" style={{color:"rgba(242,232,220,0.4)",textDecoration:"none",fontSize:12}} target="_blank">@petitboutdecom</a>
+          </div>
         </div>
       );
     }

@@ -1,0 +1,215 @@
+/* SHARED STYLES - Petit Bout de Com */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bordeaux: #7B2D2D;
+  --bordeaux-light: #9B3D3D;
+  --cream: #F2E8DC;
+  --terra: #C4714A;
+  --dark: #2C1810;
+  --sand: #5C3D2E;
+  --white: #FFFFFF;
+}
+
+body {
+  background: var(--bordeaux);
+  min-height: 100vh;
+  font-family: 'Jost', sans-serif;
+  color: var(--dark);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap');
+
+.logo-bar {
+  text-align: center;
+  padding: 28px 20px 0;
+  margin-bottom: 0;
+}
+
+.logo-text {
+  font-family: 'Jost', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+}
+
+.page-wrap {
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+.card {
+  background: var(--cream);
+  border-radius: 28px;
+  padding: 36px 28px;
+  position: relative;
+  overflow: hidden;
+}
+
+.card-deco {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: rgba(123,45,45,0.08);
+  bottom: -40px;
+  right: -40px;
+}
+
+.card-deco-2 {
+  position: absolute;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(196,113,74,0.12);
+  top: -20px;
+  left: -20px;
+}
+
+.badge {
+  display: inline-block;
+  background: var(--bordeaux);
+  color: var(--cream);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  margin-bottom: 20px;
+}
+
+.offer-emoji { font-size: 44px; margin-bottom: 12px; display: block; }
+
+h1.offer-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 44px;
+  font-weight: 900;
+  line-height: 1.0;
+  margin-bottom: 10px;
+  color: var(--dark);
+}
+
+h1.offer-title em { color: var(--bordeaux); font-style: italic; }
+
+.offer-subtitle {
+  color: var(--sand);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+.divider {
+  height: 2px;
+  background: rgba(123,45,45,0.1);
+  margin-bottom: 20px;
+  border-radius: 2px;
+}
+
+.offer-desc {
+  color: var(--sand);
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.8;
+  margin-bottom: 24px;
+}
+
+.inclus-title {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bordeaux);
+  margin-bottom: 14px;
+}
+
+.inclus-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.inclus-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--bordeaux);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  color: var(--cream);
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.inclus-text { font-size: 13px; color: var(--dark); font-weight: 500; }
+
+.price-box {
+  background: var(--bordeaux);
+  border-radius: 18px;
+  padding: 20px 24px;
+  margin: 24px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.price-amount {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 48px;
+  font-weight: 900;
+  color: var(--cream);
+  line-height: 1;
+}
+
+.price-label {
+  font-size: 11px;
+  color: rgba(242,232,220,0.6);
+  margin-top: 4px;
+  font-weight: 400;
+}
+
+.cta-btn {
+  display: block;
+  width: 100%;
+  background: var(--terra);
+  color: var(--white);
+  border: none;
+  border-radius: 16px;
+  padding: 18px 20px;
+  font-size: 15px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  font-family: 'Jost', sans-serif;
+  transition: all 0.2s ease;
+  margin-bottom: 10px;
+  letter-spacing: 0.01em;
+}
+
+.cta-btn:hover { opacity: 0.88; transform: scale(0.98); }
+
+.cta-note {
+  text-align: center;
+  color: rgba(92,61,46,0.5);
+  font-size: 11px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: rgba(242,232,220,0.6);
+  font-size: 13px;
+  text-decoration: none;
+  margin-bottom: 20px;
+  transition: color 0.2s;
+}
+
+.back-link:hover { color: var(--cream); }

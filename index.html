@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petit Bout de Com • Elsa</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;1,700&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: linear-gradient(160deg, #F7F0E8 0%, #EDE0D0 100%); min-height: 100vh; font-family: 'Jost', sans-serif; color: #2C1810; }
+    .container { max-width: 520px; margin: 0 auto; padding: 40px 20px; }
+    .logo { text-align: center; margin-bottom: 8px; }
+    .logo span { font-family: 'Jost', sans-serif; font-size: 24px; font-weight: 700; color: #C4714A; }
+    .tagline { text-align: center; color: rgba(92,61,46,0.5); font-size: 13px; font-weight: 300; margin-bottom: 36px; }
+    .hero { background: #fff; border-radius: 24px; padding: 36px 28px; box-shadow: 0 20px 60px rgba(92,61,46,0.1); border: 1px solid rgba(196,113,74,0.15); margin-bottom: 20px; }
+    .hero-emoji { font-size: 40px; margin-bottom: 12px; }
+    .hero h1 { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 700; line-height: 1.2; margin-bottom: 10px; }
+    .hero h1 em { color: #C4714A; }
+    .hero p { color: #5C3D2E; font-size: 14px; line-height: 1.7; font-weight: 300; margin-bottom: 20px; }
+    .quiz-btn { display: block; width: 100%; background: linear-gradient(135deg, #C4714A, #7B2D2D); color: #fff; border-radius: 14px; padding: 16px 20px; font-size: 15px; font-weight: 600; text-align: center; text-decoration: none; transition: all 0.2s; }
+    .quiz-btn:hover { opacity: 0.88; transform: scale(0.98); }
+    .section-title { font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #C4714A; margin-bottom: 14px; padding-left: 4px; }
+    .offer-card { background: #fff; border-radius: 18px; padding: 24px 24px; box-shadow: 0 8px 30px rgba(92,61,46,0.07); border: 1px solid rgba(196,113,74,0.12); margin-bottom: 12px; text-decoration: none; display: flex; align-items: center; justify-content: space-between; transition: all 0.2s; }
+    .offer-card:hover { transform: translateY(-2px); box-shadow: 0 14px 40px rgba(92,61,46,0.12); border-color: rgba(196,113,74,0.3); }
+    .offer-left { display: flex; align-items: center; gap: 16px; }
+    .offer-emoji { font-size: 28px; }
+    .offer-name { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; color: #2C1810; margin-bottom: 2px; }
+    .offer-desc { font-size: 12px; color: rgba(92,61,46,0.55); font-weight: 400; }
+    .offer-price { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 700; color: #C4714A; white-space: nowrap; }
+    .arrow { color: rgba(92,61,46,0.3); font-size: 16px; margin-left: 8px; }
+    .divider { height: 1px; background: rgba(92,61,46,0.08); margin: 20px 0; }
+    .footer { text-align: center; color: rgba(92,61,46,0.35); font-size: 12px; margin-top: 32px; padding-bottom: 20px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="logo"><span>Petit Bout de Com.</span></div>
+    <p class="tagline">Community Manager & Experte Business • Elsa</p>
+
+    <!-- Hero Quiz -->
+    <div class="hero">
+      <div class="hero-emoji">😬</div>
+      <h1>Ton Insta tourne mais <em>personne n'achète ?</em></h1>
+      <p>Découvre exactement pourquoi en 2 minutes et reçois une solution personnalisée.</p>
+      <a href="quiz.html" class="quiz-btn">🎯 Faire le quiz gratuit →</a>
+    </div>
+
+    <!-- Offres -->
+    <p class="section-title">Mes offres</p>
+
+    <a href="coaching-express.html" class="offer-card">
+      <div class="offer-left">
+        <div class="offer-emoji">🎯</div>
+        <div>
+          <div class="offer-name">Coaching Express</div>
+          <div class="offer-desc">Stratégie Instagram en 1h</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div class="offer-price">190€</div>
+        <div class="arrow">›</div>
+      </div>
+    </a>
+
+    <a href="drop-day.html" class="offer-card">
+      <div class="offer-left">
+        <div class="offer-emoji">📸</div>
+        <div>
+          <div class="offer-name">Drop Day</div>
+          <div class="offer-desc">Contenu pro livré en 72h</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div class="offer-price">310€</div>
+        <div class="arrow">›</div>
+      </div>
+    </a>
+
+    <a href="community-management.html" class="offer-card">
+      <div class="offer-left">
+        <div class="offer-emoji">💼</div>
+        <div>
+          <div class="offer-name">Community Management</div>
+          <div class="offer-desc">Gestion complète de tes réseaux</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div class="offer-price">590€</div>
+        <div class="arrow">›</div>
+      </div>
+    </a>
+
+    <a href="brand-refresh.html" class="offer-card">
+      <div class="offer-left">
+        <div class="offer-emoji">✨</div>
+        <div>
+          <div class="offer-name">Brand Refresh</div>
+          <div class="offer-desc">Refonte complète de ton image</div>
+        </div>
+      </div>
+      <div style="display:flex;align-items:center;gap:4px">
+        <div class="offer-price">950€</div>
+        <div class="arrow">›</div>
+      </div>
+    </a>
+
+    <div class="footer">
+      © 2025 Petit Bout de Com • Elsa<br />
+      <a href="https://ig.me/m/petitboutdecom" style="color:#C4714A;text-decoration:none;">@petitboutdecom</a>
+    </div>
+  </div>
+</body>
+</html>

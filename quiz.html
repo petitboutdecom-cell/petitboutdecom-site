@@ -203,9 +203,9 @@
 
               <p style={{color:C.terra, fontSize:12, fontWeight:700, letterSpacing:"0.1em", textTransform:"uppercase", marginBottom:14}}>→ {result.offer}</p>
 
-              <button className="cta-btn pulse" style={{width:"100%", background:`linear-gradient(135deg, #C4714A, #7B2D2D)`, color:C.white, border:"none", borderRadius:14, padding:"17px 24px", fontSize:15, fontWeight:600, cursor:"pointer", fontFamily:"'Jost', sans-serif", marginBottom:10}}>
+              <a href={result.ctaLink} target="_blank" rel="noopener noreferrer" className="cta-btn pulse" style={{width:"100%", background:`linear-gradient(135deg, #C4714A, #7B2D2D)`, color:C.white, borderRadius:14, padding:"17px 24px", fontSize:15, fontWeight:600, cursor:"pointer", fontFamily:"'Jost', sans-serif", marginBottom:10, display:"block", textAlign:"center", textDecoration:"none"}}>
                 {result.cta}
-              </button>
+              </a>
               <p style={{color:`rgba(92,61,46,0.4)`, fontSize:12, textAlign:"center", lineHeight:1.5, marginBottom:20}}>{result.ctaDesc}</p>
 
               <button className="retry-btn" onClick={handleStart} style={{width:"100%", background:"transparent", color:`rgba(92,61,46,0.35)`, border:`1px solid rgba(92,61,46,0.12)`, borderRadius:12, padding:"12px", fontSize:13, cursor:"pointer", fontFamily:"'Jost', sans-serif"}}>

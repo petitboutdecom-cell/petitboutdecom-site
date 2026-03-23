@@ -1,8 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quiz • Petit Bout de Com</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
@@ -10,16 +9,17 @@
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #7B2D2D; min-height: 100vh; font-family: 'Jost', sans-serif; }
+    body { background: #550B14; min-height: 100vh; font-family: 'Jost', sans-serif; }
     .fade { animation: fadeIn 0.4s ease both; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
-    .opt:hover { background: rgba(123,45,45,0.08) !important; border-color: #7B2D2D !important; transform: translateX(4px); }
-    .cta-btn:hover, .start-btn:hover { opacity: 0.88; transform: scale(0.98); }
-    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(196,113,74,0.4); } 50% { box-shadow: 0 0 0 12px rgba(196,113,74,0); } }
+    .opt { transition: all 0.2s ease; }
+    .opt:hover { background: rgba(85,11,20,0.06) !important; border-color: #550B14 !important; transform: translateX(4px); }
+    .pbtn:hover { opacity: 0.88; transform: scale(0.98); }
+    @keyframes pulse { 0%,100% { box-shadow: 0 0 0 0 rgba(126,105,97,0.4); } 50% { box-shadow: 0 0 0 12px rgba(126,105,97,0); } }
     .pulse { animation: pulse 2.5s infinite; }
-    input:focus { border-color: #7B2D2D !important; outline: none; }
-    input::placeholder { color: rgba(92,61,46,0.3); }
-    input.error { border-color: #c0392b !important; }
+    input:focus { border-color: #550B14 !important; outline: none; }
+    input::placeholder { color: rgba(44,24,16,0.3); }
+    input.error-field { border-color: #c0392b !important; }
   </style>
 </head>
 <body>
@@ -27,6 +27,11 @@
   <script type="text/babel">
     const FORMSPREE = "https://formspree.io/f/xreyvoyb";
     const WA = "https://wa.me/590690063830";
+    const RC = "#550B14"; // Red Cherry
+    const TP = "#7E6961"; // Taupe
+    const BG = "#CBC0B2"; // Beige
+    const CR = "#F8F8F7"; // Cream
+    const DK = "#2C1810"; // Dark
 
     const questions = [
       { id:1, q:"Quand tu penses à ton Instagram en ce moment, tu te dis…", opts:[{l:"A",t:"Je sais pas quoi publier",v:"A"},{l:"B",t:"Mon contenu est nul visuellement",v:"B"},{l:"C",t:"J'ai pas le temps de m'en occuper",v:"C"},{l:"D",t:"Mon profil ne reflète pas ce que je vaux",v:"D"}] },
@@ -38,49 +43,25 @@
     ];
 
     const results = {
-      A: { emoji:"🎯", title:"Ton problème : tu navigues à vue", desc:"Tu as l'envie, tu as l'offre, mais tu ne sais pas quoi dire ni comment le dire. Du coup tu publies quand tu peux, sans vraie direction. Et Insta ne te ramène rien.", reframe:"Ce qu'il te faut c'est pas plus de contenu. C'est une stratégie claire en 1h.", offer:"Coaching Express", cta:"Réserve ton Coaching Express", ctaNote:"On diagnostique, on clarifie, tu repars avec un plan d'action concret." },
-      B: { emoji:"📸", title:"Ton problème : ton contenu ne te rend pas justice", desc:"Tu sais ce que tu veux dire mais visuellement ça ne suit pas. Résultat : les gens ne s'arrêtent pas sur ton contenu.", reframe:"Ce qu'il te faut c'est pas un énième tuto. C'est du contenu prêt à publier.", offer:"Drop Day", cta:"Réserve ton Drop Day", ctaNote:"3h ensemble, des semaines de contenu livré sous 72h." },
-      C: { emoji:"💼", title:"Ton problème : Instagram te coûte plus que tu ne gagnes", desc:"Tu passes du temps sur les réseaux sans résultats. Tu culpabilises quand tu ne publies pas. Et au final tu n'as plus d'énergie pour ton vrai business.", reframe:"Ce qu'il te faut c'est pas une formation de plus. C'est quelqu'un qui s'en occupe à ta place.", offer:"Community Management", cta:"Découvre le Community Management", ctaNote:"Tu te concentres sur ton business, je gère le reste." },
-      D: { emoji:"✨", title:"Ton problème : ton profil ne reflète pas ta valeur", desc:"Tu es pro, ton offre est solide, mais ton Instagram ne le montre pas. Les gens arrivent sur ton profil et repartent.", reframe:"Ce qu'il te faut c'est pas juste un nouveau logo. C'est une image de marque qui vend avant même que tu parles.", offer:"Brand Refresh", cta:"Découvre le Brand Refresh", ctaNote:"Photo, templates, logo, identité : on repart de zéro." },
+      A: { emoji:"🎯", title:"Ton problème : tu navigues à vue", desc:"Tu as l'envie, tu as l'offre, mais tu ne sais pas quoi dire ni comment le dire. Du coup tu publies quand tu peux, sans vraie direction. Et Insta ne te ramène rien.", reframe:"Ce qu'il te faut c'est pas plus de contenu. C'est une stratégie claire en 1h.", offer:"Coaching Express", cta:"Réserve ton Coaching Express", note:"On diagnostique, on clarifie, tu repars avec un plan d'action concret." },
+      B: { emoji:"📸", title:"Ton problème : ton contenu ne te rend pas justice", desc:"Tu sais ce que tu veux dire mais visuellement ça ne suit pas. Résultat : les gens ne s'arrêtent pas sur ton contenu.", reframe:"Ce qu'il te faut c'est pas un énième tuto. C'est du contenu prêt à publier.", offer:"Drop Day", cta:"Réserve ton Drop Day", note:"3h ensemble, des semaines de contenu livré sous 72h." },
+      C: { emoji:"💼", title:"Ton problème : Instagram te coûte plus que tu ne gagnes", desc:"Tu passes du temps sur les réseaux sans résultats. Tu culpabilises quand tu ne publies pas. Et au final tu n'as plus d'énergie pour ton vrai business.", reframe:"Ce qu'il te faut c'est pas une formation de plus. C'est quelqu'un qui s'en occupe à ta place.", offer:"Community Management", cta:"Découvre le Community Management", note:"Tu te concentres sur ton business, je gère le reste." },
+      D: { emoji:"✨", title:"Ton problème : ton profil ne reflète pas ta valeur", desc:"Tu es pro, ton offre est solide, mais ton Instagram ne le montre pas. Les gens arrivent sur ton profil et repartent.", reframe:"Ce qu'il te faut c'est pas juste un nouveau logo. C'est une image de marque qui vend avant même que tu parles.", offer:"Brand Refresh", cta:"Découvre le Brand Refresh", note:"Logo, templates, identité : on repart de zéro." },
     };
 
-    function getKey(answers) {
-      const c = {A:0,B:0,C:0,D:0};
-      answers.forEach(a => { if(a) c[a]++; });
-      return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0];
-    }
-
-    function isValidEmail(email) {
-      return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim());
-    }
-
-    function isValidName(name) {
-      return name.trim().length >= 2;
-    }
-
-    const B = "#7B2D2D";
-    const CR = "#F2E8DC";
-    const T = "#C4714A";
-    const DK = "#2C1810";
-    const SD = "#5C3D2E";
+    function getKey(a) { const c={A:0,B:0,C:0,D:0}; a.forEach(x=>{if(x)c[x]++;}); return Object.entries(c).sort((a,b)=>b[1]-a[1])[0][0]; }
+    function validEmail(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(e.trim()); }
+    function validName(n) { return n.trim().length >= 2; }
 
     const card = { background:CR, borderRadius:28, padding:"36px 28px", position:"relative", overflow:"hidden" };
-    const badge = { display:"inline-block", background:B, color:CR, fontSize:10, fontWeight:800, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:20 };
-    const primaryBtn = { width:"100%", background:T, color:"#fff", border:"none", borderRadius:16, padding:"18px 20px", fontSize:15, fontWeight:700, cursor:"pointer", fontFamily:"'Jost',sans-serif", marginBottom:10, transition:"all 0.2s", letterSpacing:"0.01em" };
+    const badge = { display:"inline-block", background:RC, color:CR, fontSize:10, fontWeight:800, letterSpacing:"0.12em", textTransform:"uppercase", padding:"6px 14px", borderRadius:100, marginBottom:20 };
+    const btn = { width:"100%", background:TP, color:CR, border:"none", borderRadius:16, padding:"18px 20px", fontSize:15, fontWeight:700, cursor:"pointer", fontFamily:"'Jost',sans-serif", marginBottom:10, transition:"all 0.2s" };
 
     function Deco() {
       return <>
-        <div style={{position:"absolute",width:150,height:150,borderRadius:"50%",background:"rgba(123,45,45,0.07)",bottom:-60,right:-60}} />
-        <div style={{position:"absolute",width:90,height:90,borderRadius:"50%",background:"rgba(196,113,74,0.1)",top:-30,left:-30}} />
+        <div style={{position:"absolute",width:150,height:150,borderRadius:"50%",background:"rgba(85,11,20,0.06)",bottom:-60,right:-60}} />
+        <div style={{position:"absolute",width:90,height:90,borderRadius:"50%",background:"rgba(203,192,178,0.2)",top:-30,left:-30}} />
       </>;
-    }
-
-    function Logo() {
-      return (
-        <div style={{textAlign:"center", padding:"32px 20px 24px"}}>
-          <div style={{fontSize:20, fontWeight:800, color:CR, fontFamily:"'Jost',sans-serif"}}>Petit Bout de Com.</div>
-        </div>
-      );
     }
 
     function Quiz() {
@@ -102,143 +83,126 @@
 
       const next = () => {
         if(!sel) return;
-        const na = [...answers, sel];
-        setAnswers(na); setSel(null);
-        if(cur+1 < questions.length) setCur(cur+1);
-        else setScreen("capture");
+        const na=[...answers,sel]; setAnswers(na); setSel(null);
+        if(cur+1<questions.length) setCur(cur+1); else setScreen("capture");
       };
 
       const validate = () => {
-        const e = {};
-        if(!isValidName(prenom)) e.prenom = "Merci d'entrer ton prénom (minimum 2 caractères)";
-        if(!isValidEmail(email)) e.email = "Merci d'entrer une adresse email valide (ex: marie@gmail.com)";
-        setErrors(e);
-        return Object.keys(e).length === 0;
+        const e={};
+        if(!validName(prenom)) e.prenom="Merci d'entrer ton prénom (minimum 2 caractères)";
+        if(!validEmail(email)) e.email="Merci d'entrer une adresse email valide (ex: marie@gmail.com)";
+        setErrors(e); return Object.keys(e).length===0;
       };
 
       const submit = async () => {
         if(!validate()) return;
         setSending(true);
-        const fk = getKey(answers);
-        const fr = results[fk];
-        const det = questions.map((q,i) => { const o = q.opts.find(o=>o.v===answers[i]); return `Q${i+1}: ${o?o.t:""}`;}).join(" | ");
-        try {
-          await fetch(FORMSPREE, { method:"POST", headers:{"Content-Type":"application/json"}, body:JSON.stringify({ Prénom:prenom.trim(), Email:email.trim(), Instagram:insta||"Non renseigné", Résultat:fr.offer, Problème:fr.title, Réponses:det }) });
-        } catch(e) {}
-        setSending(false);
-        setScreen("result");
+        const fk=getKey(answers); const fr=results[fk];
+        const det=questions.map((q,i)=>{const o=q.opts.find(o=>o.v===answers[i]);return `Q${i+1}: ${o?o.t:""}`;}).join(" | ");
+        try { await fetch(FORMSPREE,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({Prénom:prenom.trim(),Email:email.trim(),Instagram:insta||"Non renseigné",Résultat:fr.offer,Problème:fr.title,Réponses:det})}); } catch(e){}
+        setSending(false); setScreen("result");
       };
 
       return (
-        <div style={{minHeight:"100vh", background:B}}>
-          <Logo />
-          <div style={{maxWidth:480, margin:"0 auto", padding:"0 20px 48px"}}>
+        <div style={{minHeight:"100vh",background:RC}}>
+          <div style={{textAlign:"center",padding:"32px 20px 24px"}}>
+            <div style={{fontSize:20,fontWeight:800,color:CR,fontFamily:"'Jost',sans-serif"}}>Petit Bout de Com.</div>
+          </div>
+          <div style={{maxWidth:480,margin:"0 auto",padding:"0 20px 48px"}}>
 
-            {/* INTRO */}
             {screen==="intro" && (
               <div style={card} className="fade">
                 <Deco />
                 <span style={badge}>Quiz gratuit • 2 min</span>
-                <div style={{fontSize:48, marginBottom:16}}>😬</div>
-                <h1 style={{fontFamily:"'Cormorant Garamond',serif", fontSize:40, fontWeight:900, lineHeight:1.05, marginBottom:14, color:DK}}>
-                  Ton Insta tourne mais <em style={{color:B}}>personne n'achète ?</em>
+                <div style={{fontSize:48,marginBottom:16}}>😬</div>
+                <h1 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:40,fontWeight:900,lineHeight:1.05,marginBottom:14,color:DK}}>
+                  Ton Insta tourne mais <em style={{color:RC}}>personne n'achète ?</em>
                 </h1>
-                <p style={{color:SD, fontSize:14, fontWeight:300, lineHeight:1.7, marginBottom:24}}>
-                  Découvre <strong style={{color:DK, fontWeight:600}}>exactement pourquoi</strong> ton compte Instagram ne convertit pas et ce qu'il faut faire pour changer ça.
-                </p>
-                <div style={{height:2, background:"rgba(123,45,45,0.1)", marginBottom:22, borderRadius:2}} />
+                <p style={{color:TP,fontSize:14,fontWeight:300,lineHeight:1.7,marginBottom:24}}>Découvre <strong style={{color:DK,fontWeight:600}}>exactement pourquoi</strong> ton compte Instagram ne convertit pas et ce qu'il faut faire pour changer ça.</p>
+                <div style={{height:2,background:"rgba(85,11,20,0.08)",marginBottom:22,borderRadius:2}} />
                 {["6 questions ciblées","Un diagnostic personnalisé","Une solution concrète"].map(t=>(
-                  <div key={t} style={{display:"flex", alignItems:"center", gap:12, marginBottom:10}}>
-                    <div style={{width:22,height:22,borderRadius:"50%",background:B,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:CR,fontWeight:800,flexShrink:0}}>✓</div>
+                  <div key={t} style={{display:"flex",alignItems:"center",gap:12,marginBottom:10}}>
+                    <div style={{width:22,height:22,borderRadius:"50%",background:RC,display:"flex",alignItems:"center",justifyContent:"center",fontSize:10,color:CR,fontWeight:800,flexShrink:0}}>✓</div>
                     <span style={{fontSize:13,color:DK,fontWeight:500}}>{t}</span>
                   </div>
                 ))}
                 <div style={{height:24}} />
-                <button className="start-btn cta-btn" onClick={()=>setScreen("quiz")} style={primaryBtn}>Je veux savoir pourquoi →</button>
-                <p style={{textAlign:"center",color:"rgba(92,61,46,0.4)",fontSize:11}}>par <strong>Elsa • Petit Bout de Com</strong></p>
+                <button className="pbtn" onClick={()=>setScreen("quiz")} style={btn}>Je veux savoir pourquoi →</button>
+                <p style={{textAlign:"center",color:BG,fontSize:11}}>par <strong>Elsa • Petit Bout de Com</strong></p>
               </div>
             )}
 
-            {/* QUIZ */}
             {screen==="quiz" && (
               <div style={card} className="fade">
                 <Deco />
                 <div style={{display:"flex",alignItems:"center",gap:12,marginBottom:32}}>
-                  <div style={{flex:1,height:6,background:"rgba(123,45,45,0.1)",borderRadius:100,overflow:"hidden"}}>
-                    <div style={{height:"100%",width:`${progress}%`,background:`linear-gradient(90deg,${B},${T})`,borderRadius:100,transition:"width 0.4s ease"}} />
+                  <div style={{flex:1,height:6,background:"rgba(85,11,20,0.1)",borderRadius:100,overflow:"hidden"}}>
+                    <div style={{height:"100%",width:`${progress}%`,background:`linear-gradient(90deg,${RC},${TP})`,borderRadius:100,transition:"width 0.4s ease"}} />
                   </div>
-                  <span style={{color:"rgba(92,61,46,0.45)",fontSize:11,fontWeight:700}}>{cur+1} / {questions.length}</span>
+                  <span style={{color:BG,fontSize:11,fontWeight:700}}>{cur+1} / {questions.length}</span>
                 </div>
-                <p style={{color:B,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:8}}>Question {cur+1}</p>
+                <p style={{color:RC,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:8}}>Question {cur+1}</p>
                 <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:26,fontWeight:700,color:DK,lineHeight:1.3,marginBottom:24}}>{questions[cur].q}</h2>
                 <div style={{display:"flex",flexDirection:"column",gap:10,marginBottom:24}}>
                   {questions[cur].opts.map(opt=>(
                     <button key={opt.v} className="opt" onClick={()=>setSel(opt.v)}
-                      style={{display:"flex",alignItems:"center",gap:12,padding:"13px 16px",border:`2px solid ${sel===opt.v?B:"rgba(123,45,45,0.15)"}`,borderRadius:12,cursor:"pointer",fontSize:13,fontFamily:"'Jost',sans-serif",fontWeight:500,textAlign:"left",lineHeight:1.4,background:sel===opt.v?"rgba(123,45,45,0.08)":CR,color:sel===opt.v?DK:"rgba(92,61,46,0.7)",transition:"all 0.2s"}}>
-                      <span style={{minWidth:28,height:28,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12,flexShrink:0,background:sel===opt.v?B:"rgba(123,45,45,0.1)",color:sel===opt.v?CR:SD,transition:"all 0.2s"}}>{opt.l}</span>
+                      style={{display:"flex",alignItems:"center",gap:12,padding:"13px 16px",border:`2px solid ${sel===opt.v?RC:"rgba(85,11,20,0.12)"}`,borderRadius:12,cursor:"pointer",fontSize:13,fontFamily:"'Jost',sans-serif",fontWeight:500,textAlign:"left",lineHeight:1.4,background:sel===opt.v?"rgba(85,11,20,0.06)":CR,color:sel===opt.v?DK:TP,transition:"all 0.2s"}}>
+                      <span style={{minWidth:28,height:28,borderRadius:8,display:"flex",alignItems:"center",justifyContent:"center",fontWeight:800,fontSize:12,flexShrink:0,background:sel===opt.v?RC:"rgba(85,11,20,0.08)",color:sel===opt.v?CR:TP,transition:"all 0.2s"}}>{opt.l}</span>
                       {opt.t}
                     </button>
                   ))}
                 </div>
-                <button onClick={next} disabled={!sel} style={{...primaryBtn,background:sel?T:"rgba(123,45,45,0.15)",color:sel?"#fff":"rgba(92,61,46,0.35)",cursor:sel?"pointer":"not-allowed",marginBottom:0}}>
+                <button onClick={next} disabled={!sel} style={{...btn,background:sel?TP:"rgba(85,11,20,0.12)",color:sel?CR:BG,cursor:sel?"pointer":"not-allowed",marginBottom:0}}>
                   {cur+1===questions.length?"Voir mon résultat →":"Suivant →"}
                 </button>
               </div>
             )}
 
-            {/* CAPTURE */}
             {screen==="capture" && (
               <div style={card} className="fade">
                 <Deco />
                 <span style={badge}>Dernière étape ✨</span>
                 <div style={{fontSize:44,marginBottom:12}}>🎯</div>
                 <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:32,fontWeight:900,color:DK,lineHeight:1.1,marginBottom:10}}>Ton diagnostic est prêt !</h2>
-                <p style={{color:SD,fontSize:14,fontWeight:300,lineHeight:1.6,marginBottom:24}}>Laisse-moi tes infos pour recevoir ton résultat personnalisé 👇🏾</p>
-
+                <p style={{color:TP,fontSize:14,fontWeight:300,lineHeight:1.6,marginBottom:24}}>Laisse-moi tes infos pour recevoir ton résultat personnalisé 👇🏾</p>
                 {[
-                  {label:"Ton prénom *", type:"text", placeholder:"Marie", value:prenom, set:setPrenom, err:errors.prenom, field:"prenom"},
-                  {label:"Ton email *", type:"email", placeholder:"marie@gmail.com", value:email, set:setEmail, err:errors.email, field:"email"},
-                  {label:"Ton compte Instagram (optionnel)", type:"text", placeholder:"@moncompte", value:insta, set:setInsta, err:null, field:"insta"},
+                  {label:"Ton prénom *",type:"text",ph:"Marie",val:prenom,set:setPrenom,err:errors.prenom,key:"prenom"},
+                  {label:"Ton email *",type:"email",ph:"marie@gmail.com",val:email,set:setEmail,err:errors.email,key:"email"},
+                  {label:"Ton compte Instagram (optionnel)",type:"text",ph:"@moncompte",val:insta,set:setInsta,err:null,key:"insta"},
                 ].map(f=>(
-                  <div key={f.field} style={{marginBottom:16}}>
-                    <label style={{display:"block",color:SD,fontSize:12,fontWeight:700,marginBottom:6}}>{f.label}</label>
-                    <input
-                      type={f.type}
-                      placeholder={f.placeholder}
-                      value={f.value}
-                      onChange={e=>{ f.set(e.target.value); if(errors[f.field]) setErrors(prev=>({...prev,[f.field]:null})); }}
-                      className={f.err?"error":""}
-                      style={{width:"100%",background:"rgba(123,45,45,0.05)",border:`2px solid ${f.err?"#c0392b":"rgba(123,45,45,0.15)"}`,borderRadius:12,padding:"13px 16px",color:DK,fontSize:14,fontFamily:"'Jost',sans-serif",transition:"border-color 0.2s"}}
-                    />
-                    {f.err && <p style={{color:"#c0392b",fontSize:11,marginTop:5,fontWeight:500}}>{f.err}</p>}
+                  <div key={f.key} style={{marginBottom:16}}>
+                    <label style={{display:"block",color:TP,fontSize:12,fontWeight:700,marginBottom:6}}>{f.label}</label>
+                    <input type={f.type} placeholder={f.ph} value={f.val}
+                      onChange={e=>{f.set(e.target.value);if(errors[f.key])setErrors(p=>({...p,[f.key]:null}));}}
+                      className={f.err?"error-field":""}
+                      style={{width:"100%",background:"rgba(85,11,20,0.04)",border:`2px solid ${f.err?"#c0392b":"rgba(85,11,20,0.12)"}`,borderRadius:12,padding:"13px 16px",color:DK,fontSize:14,fontFamily:"'Jost',sans-serif",transition:"border-color 0.2s"}} />
+                    {f.err&&<p style={{color:"#c0392b",fontSize:11,marginTop:5,fontWeight:500}}>{f.err}</p>}
                   </div>
                 ))}
-
-                <button className="cta-btn" onClick={submit} disabled={sending} style={{...primaryBtn,opacity:sending?0.6:1,cursor:sending?"not-allowed":"pointer",marginTop:8}}>
+                <button className="pbtn" onClick={submit} disabled={sending} style={{...btn,opacity:sending?0.6:1,cursor:sending?"not-allowed":"pointer",marginTop:8}}>
                   {sending?"Envoi en cours…":"Voir mon diagnostic →"}
                 </button>
-                <p style={{textAlign:"center",color:"rgba(92,61,46,0.3)",fontSize:11,marginTop:4}}>🔒 Tes infos restent confidentielles. Pas de spam.</p>
+                <p style={{textAlign:"center",color:BG,fontSize:11,marginTop:4}}>🔒 Tes infos restent confidentielles. Pas de spam.</p>
               </div>
             )}
 
-            {/* RESULT */}
             {screen==="result" && result && (
               <div style={card} className="fade">
                 <Deco />
                 <span style={badge}>Ton diagnostic</span>
                 <div style={{fontSize:44,marginBottom:12}}>{result.emoji}</div>
                 <h2 style={{fontFamily:"'Cormorant Garamond',serif",fontSize:30,fontWeight:900,color:DK,lineHeight:1.15,marginBottom:12}}>{result.title}</h2>
-                <p style={{color:SD,fontSize:14,fontWeight:300,lineHeight:1.8,marginBottom:18}}>{result.desc}</p>
-                <div style={{background:B,borderRadius:16,padding:"16px 20px",marginBottom:18}}>
+                <p style={{color:TP,fontSize:14,fontWeight:300,lineHeight:1.8,marginBottom:18}}>{result.desc}</p>
+                <div style={{background:RC,borderRadius:16,padding:"16px 20px",marginBottom:18}}>
                   <p style={{fontFamily:"'Cormorant Garamond',serif",color:CR,fontSize:18,fontWeight:700,lineHeight:1.5,fontStyle:"italic"}}>{result.reframe}</p>
                 </div>
-                <p style={{color:B,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:14}}>→ {result.offer}</p>
-                <a href={WA} target="_blank" rel="noopener noreferrer" className="cta-btn pulse"
-                  style={{...primaryBtn,display:"block",textAlign:"center",textDecoration:"none"}}>
+                <p style={{color:RC,fontSize:10,fontWeight:800,letterSpacing:"0.14em",textTransform:"uppercase",marginBottom:14}}>→ {result.offer}</p>
+                <a href={WA} target="_blank" rel="noopener noreferrer" className="pbtn pulse"
+                  style={{...btn,display:"block",textAlign:"center",textDecoration:"none"}}>
                   {result.cta}
                 </a>
-                <p style={{color:"rgba(92,61,46,0.4)",fontSize:11,textAlign:"center",lineHeight:1.5,marginBottom:16}}>{result.ctaNote}</p>
-                <button onClick={reset} style={{width:"100%",background:"transparent",color:"rgba(92,61,46,0.35)",border:"2px solid rgba(123,45,45,0.12)",borderRadius:12,padding:"12px",fontSize:13,cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>
+                <p style={{color:BG,fontSize:11,textAlign:"center",lineHeight:1.5,marginBottom:16}}>{result.note}</p>
+                <button onClick={reset} style={{width:"100%",background:"transparent",color:BG,border:`2px solid rgba(85,11,20,0.1)`,borderRadius:12,padding:"12px",fontSize:13,cursor:"pointer",fontFamily:"'Jost',sans-serif"}}>
                   Refaire le quiz
                 </button>
               </div>
@@ -246,7 +210,7 @@
 
           </div>
           <div style={{textAlign:"center",paddingBottom:24}}>
-            <a href="https://www.instagram.com/petitboutdecom/" style={{color:"rgba(242,232,220,0.4)",textDecoration:"none",fontSize:12}} target="_blank">@petitboutdecom</a>
+            <a href="https://www.instagram.com/petitboutdecom/" style={{color:"rgba(248,248,247,0.4)",textDecoration:"none",fontSize:12}} target="_blank">@petitboutdecom</a>
           </div>
         </div>
       );

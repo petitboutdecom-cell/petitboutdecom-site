@@ -1,42 +1,41 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Brand Refresh • Petit Bout de Com</title>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,700;0,900;1,700&family=Jost:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: #7B2D2D; min-height: 100vh; font-family: 'Jost', sans-serif; }
+    body { background: #550B14; min-height: 100vh; font-family: 'Jost', sans-serif; }
     .logo-bar { text-align: center; padding: 32px 20px 24px; }
-    .logo-text { font-size: 20px; font-weight: 800; color: #F2E8DC; }
+    .logo-text { font-size: 20px; font-weight: 800; color: #F8F8F7; }
     .page-wrap { max-width: 480px; margin: 0 auto; padding: 0 20px 48px; }
-    .back { display: inline-flex; align-items: center; gap: 6px; color: rgba(242,232,220,0.55); font-size: 13px; text-decoration: none; margin-bottom: 16px; transition: color 0.2s; }
-    .back:hover { color: #F2E8DC; }
-    .card { background: #F2E8DC; border-radius: 28px; padding: 36px 28px; position: relative; overflow: hidden; animation: fadeIn 0.5s ease both; }
-    .deco1 { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(123,45,45,0.07); bottom: -60px; right: -60px; }
-    .deco2 { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: rgba(196,113,74,0.1); top: -30px; left: -30px; }
-    .badge { display: inline-block; background: #7B2D2D; color: #F2E8DC; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
+    .back { display: inline-flex; align-items: center; gap: 6px; color: rgba(248,248,247,0.5); font-size: 13px; text-decoration: none; margin-bottom: 16px; transition: color 0.2s; }
+    .back:hover { color: #F8F8F7; }
+    .card { background: #F8F8F7; border-radius: 28px; padding: 36px 28px; position: relative; overflow: hidden; animation: fadeIn 0.5s ease both; }
+    .deco1 { position: absolute; width: 150px; height: 150px; border-radius: 50%; background: rgba(85,11,20,0.06); bottom: -60px; right: -60px; }
+    .deco2 { position: absolute; width: 90px; height: 90px; border-radius: 50%; background: rgba(203,192,178,0.25); top: -30px; left: -30px; }
+    .badge { display: inline-block; background: #550B14; color: #F8F8F7; font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 6px 14px; border-radius: 100px; margin-bottom: 20px; }
     .emoji { font-size: 48px; margin-bottom: 12px; display: block; }
     h1 { font-family: 'Cormorant Garamond', serif; font-size: 48px; font-weight: 900; line-height: 1.0; margin-bottom: 10px; color: #2C1810; }
-    h1 em { color: #7B2D2D; font-style: italic; }
-    .subtitle { color: #5C3D2E; font-size: 15px; font-weight: 400; line-height: 1.6; margin-bottom: 24px; }
-    .divider { height: 2px; background: rgba(123,45,45,0.1); margin-bottom: 20px; border-radius: 2px; }
-    .value-box { background: #7B2D2D; border-radius: 16px; padding: 18px 20px; margin-bottom: 20px; }
-    .value-box p { font-family: 'Cormorant Garamond', serif; color: #F2E8DC; font-size: 18px; font-weight: 700; line-height: 1.5; font-style: italic; }
-    .desc { color: #5C3D2E; font-size: 14px; font-weight: 300; line-height: 1.8; margin-bottom: 24px; }
-    .inclus-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #7B2D2D; margin-bottom: 14px; }
+    h1 em { color: #550B14; font-style: italic; }
+    .subtitle { color: #7E6961; font-size: 15px; font-weight: 400; line-height: 1.6; margin-bottom: 24px; }
+    .divider { height: 2px; background: rgba(85,11,20,0.08); margin-bottom: 20px; border-radius: 2px; }
+    .value-box { background: #550B14; border-radius: 16px; padding: 18px 20px; margin-bottom: 20px; }
+    .value-box p { font-family: 'Cormorant Garamond', serif; color: #F8F8F7; font-size: 18px; font-weight: 700; line-height: 1.5; font-style: italic; }
+    .desc { color: #7E6961; font-size: 14px; font-weight: 300; line-height: 1.8; margin-bottom: 24px; }
+    .inclus-title { font-size: 10px; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: #550B14; margin-bottom: 14px; }
     .item { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
-    .dot { width: 22px; height: 22px; border-radius: 50%; background: #7B2D2D; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #F2E8DC; font-weight: 800; flex-shrink: 0; }
+    .dot { width: 22px; height: 22px; border-radius: 50%; background: #550B14; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #F8F8F7; font-weight: 800; flex-shrink: 0; }
     .item span { font-size: 13px; color: #2C1810; font-weight: 500; }
-    .price-box { background: #7B2D2D; border-radius: 18px; padding: 20px 24px; margin: 24px 0; display: flex; align-items: center; justify-content: space-between; }
-    .price { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 900; color: #F2E8DC; line-height: 1; }
-    .price-label { font-size: 11px; color: rgba(242,232,220,0.55); margin-top: 4px; }
-    .cta { display: block; width: 100%; background: #C4714A; color: #fff; border-radius: 16px; padding: 18px 20px; font-size: 15px; font-weight: 700; text-align: center; text-decoration: none; transition: all 0.2s; margin-bottom: 10px; }
+    .price-box { background: #550B14; border-radius: 18px; padding: 20px 24px; margin: 24px 0; display: flex; align-items: center; justify-content: space-between; }
+    .price { font-family: 'Cormorant Garamond', serif; font-size: 52px; font-weight: 900; color: #F8F8F7; line-height: 1; }
+    .price-label { font-size: 11px; color: rgba(248,248,247,0.55); margin-top: 4px; }
+    .cta { display: block; width: 100%; background: #7E6961; color: #F8F8F7; border-radius: 16px; padding: 18px 20px; font-size: 15px; font-weight: 700; text-align: center; text-decoration: none; transition: all 0.2s; margin-bottom: 10px; }
     .cta:hover { opacity: 0.88; transform: scale(0.98); }
-    .cta-note { text-align: center; color: rgba(92,61,46,0.45); font-size: 11px; }
+    .cta-note { text-align: center; color: #CBC0B2; font-size: 11px; }
     .footer { text-align: center; padding: 24px; }
-    .footer a { color: rgba(242,232,220,0.4); text-decoration: none; font-size: 12px; }
+    .footer a { color: rgba(248,248,247,0.4); text-decoration: none; font-size: 12px; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
   </style>
 </head>
@@ -45,8 +44,7 @@
   <div class="page-wrap">
     <a href="index.html" class="back">← Retour</a>
     <div class="card">
-      <div class="deco1"></div>
-      <div class="deco2"></div>
+      <div class="deco1"></div><div class="deco2"></div>
       <span class="badge">Refonte complète</span>
       <span class="emoji">✨</span>
       <h1>Brand<br /><em>Refresh</em></h1>
@@ -55,7 +53,7 @@
       <div class="value-box">
         <p>Ton profil devient ton meilleur commercial. Il inspire confiance, attire les bonnes personnes et donne envie de travailler avec toi dès le premier regard.</p>
       </div>
-      <p class="desc">Tu as une offre solide, tu te bats pour tes clients, tu donnes tout. Mais ton Instagram ne le reflète pas encore. Une identité visuelle floue, des templates qui ne te ressemblent pas, un logo qui date. Résultat : les gens arrivent sur ton profil et repartent sans comprendre ce que tu peux faire pour eux. On change ça. On repart de zéro pour créer une image de marque cohérente, reconnaissable et qui convertit.</p>
+      <p class="desc">Tu as une offre solide, tu te bats pour tes clients, tu donnes tout. Mais ton Instagram ne le reflète pas encore. Une identité visuelle floue, des templates qui ne te ressemblent pas, un logo qui date. On change ça. On repart de zéro pour créer une image de marque cohérente, reconnaissable et qui convertit.</p>
       <p class="inclus-title">Ce qui est inclus</p>
       <div class="item"><div class="dot">✓</div><span>Logo et identité visuelle complète</span></div>
       <div class="item"><div class="dot">✓</div><span>Palette de couleurs et guide de marque</span></div>
